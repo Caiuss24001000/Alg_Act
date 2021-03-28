@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define TAM_MAX 500000
 
 //#include <math.h>
 //#define LOG2 log2(x) = log10(x) / log10(2)
 
 double log_2(int, double);
 double p(double, int);
+double fc1(int);
+double fc2(int);
 
 int main(){
     
@@ -15,15 +18,23 @@ int main(){
     else
         printf("Documento encontrado\n");
 
-    for (int i = 0; i < 500000; i+=100)
+    for (int i = 0; i <= TAM_MAX; i+=500)
     {
-        double a = 4*i+2+5*i*log_2(2,(double)i)+5*log_2(2,(double)i) ;
+        double a = fc2(i);
         fprintf(pf, "%d, %f \n", i, a);
         //printf("%d %f\n", i, a);
     }
     
     fclose(pf);
     return 0;
+}
+
+double fc2(int i){
+    return 5*i+8;
+}
+
+double fc1(int i){
+    return 4*i+2+5*i*log_2(2,(double)i)+5*log_2(2,(double)i);
 }
 
 double log_2(int b,double n) {

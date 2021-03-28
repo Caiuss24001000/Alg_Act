@@ -33,7 +33,7 @@ int main(){
     int n[]={-1,0,1,2,3,5,15,20,100,409,500,593,1000,1471,1500,2801,3000,5000,10000,20000};
     int ct, ce;
     
-    c1(n,TAM);
+    c2(n,TAM);
     return 0;
 }
 
@@ -62,29 +62,49 @@ void c1(int A[], int n){
 
 void c2(int A[], int n){
     //Falta declarar z, tomaremos z como un entero igual a 1
-    int z = 1;
+    int z = 1, t=0;
 
     //Inicio
-    int polinomio = 0;
+    int polinomio = 0; t++;//polinomio = 0 se hace 1
+    t++;// i = 0 se hace 1
     for (int i = 0; i <= n; ++i)
     {
-        polinomio = polinomio*z + A[n-i];
+        t++; //Se hacen (n+2) comprobaciones
+        polinomio = polinomio*z + A[n-i]; t+=3; // Se hace 3(n+1)
+        t++; // se hace n+1
     }
+    t++; //Ultima comparación del i<=n 1
+    
+    printf("La variable temporal es: %d\n", t);
+
 }
 
 void c3(int A[TAM][TAM], int B[TAM][TAM], int C[TAM][TAM], int n){
-    
+    int t = 0;
 
     //Inicio
+    t++; //lo hace 1 vez
     for (int i = 1; i < n; ++i)
     {
-        for (int j = 1; j < n; ++j){
-            C[i][j] = 0;
-            for (int k=1; i < n; ++i){
-                C[i][j] = C[i][j] + A[i][k]*B[k][j];
+        t++; //Comparacion lo hace n
+        t++; // j = 1 lo hace 1 (n-1)
+        for (int j = 1; j < n; ++j){ //Todo por n-1
+            t++; //Comparaciones lo hace n
+            C[i][j] = 0; t++; // lo hace n-1
+
+            t++; // lo hace una vez por n-1
+            for (int k=1; i < n; ++i){ // Todo por n-1
+                t++; //Comparaciones lo hace n
+                C[i][j] = C[i][j] + A[i][k]*B[k][j]; t+=3; // lo hace 3 (n-1)
+                t++; //el incremento lo hace n-1
             }
+            t++; // lo hace n-1 incrementos
         }
+        t++;
+        t++; // j++ lo hace (n-1)
     }
+
+    t++; //Complemento de la conparacion 
 }
 
 void c4(int n){
